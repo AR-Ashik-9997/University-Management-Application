@@ -1,5 +1,5 @@
 import path from 'path'
-import { createLogger, format, transports } from 'winston'
+import { createLogger, format } from 'winston'
 const { combine, timestamp, printf } = format
 import DailyRotateFile from 'winston-daily-rotate-file'
 
@@ -10,7 +10,7 @@ const myFormat = printf(({ level, message, timestamp }) => {
     month: 'long',
     day: 'numeric',
   })
-  const readableTime = date.toLocaleString('en-US', {
+  const readableTime = date.toLocaleString('en-UK', {
     hour: 'numeric',
     minute: 'numeric',
     hour12: true,
