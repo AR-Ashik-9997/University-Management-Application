@@ -14,6 +14,11 @@
             "date": 1685905200306,
             "name": "G:\\Next Level-2\\University-Management-Application\\logs\\winston\\errors\\05-06-2023-01-error.log",
             "hash": "07ebdf83f853d8d06b0d1f55593e6b4bc36327da6a362e50072e5626633ffce8"
+        },
+        {
+            "date": 1685909276428,
+            "name": "G:\\Next Level-2\\University-Management-Application\\logs\\winston\\errors\\05-06-2023-02-error.log",
+            "hash": "06c6e0b1b3c6b37731b5f0b63ff2385e2e6c973f55adb6a8707010254296b926"
         }
     ],
     "hashType": "sha256"
