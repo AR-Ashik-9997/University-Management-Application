@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 const zodValidationSchema = z.object({
   body: z.object({
     role: z.string({
@@ -6,8 +6,8 @@ const zodValidationSchema = z.object({
     }),
     password: z.string().optional(),
   }),
-})
+});
 
 export const UserValidation = {
   zodValidationSchema,
-}
+};
