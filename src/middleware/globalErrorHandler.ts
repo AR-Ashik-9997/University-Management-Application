@@ -1,28 +1,30 @@
-import { Request, Response, NextFunction } from 'express'
-import { IGenerickErrorMessage } from '../interfaces/error'
-import config from '../config'
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-console */
+import { ErrorRequestHandler } from 'express'
 import handleValidationError from '../eroors/handleValidationError'
-import { error } from 'winston'
+import { IGenerickErrorMessage } from '../interfaces/error'
 import ApiError from '../eroors/apiErrorHandler'
+import config from '../config'
+import { errorlogger } from '../shared/logger'
 
-const globalErrorHandler = (
-  err,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
+  config.env === 'development'
+    ? console.log('global error handler', error)
+    : errorlogger.error('global error handler', error)
+
   let statusCode = 500
-  let message = 'Something went wrong'
-  let errorMessage: IGenerickErrorMessage[] = []
-  if (err?.name === 'validationError') {
-    const simplifiedErrorMessage = handleValidationError(err)
-    statusCode = simplifiedErrorMessage.statusCode
-    message = simplifiedErrorMessage.message
-    errorMessage = simplifiedErrorMessage.errorMessage
+  let message = 'Something went wrong !'
+  let errorMessages: IGenerickErrorMessage[] = []
+
+  if (error?.name === 'ValidationError') {
+    const simplifiedError = handleValidationError(error)
+    statusCode = simplifiedError.statusCode
+    message = simplifiedError.message
+    errorMessages = simplifiedError.errorMessages
   } else if (error instanceof ApiError) {
     statusCode = error?.statusCode
-    message = error?.message
-    errorMessage = error?.message
+    message = error.message
+    errorMessages = error?.message
       ? [
           {
             path: '',
@@ -32,7 +34,7 @@ const globalErrorHandler = (
       : []
   } else if (error instanceof Error) {
     message = error?.message
-    errorMessage = error?.message
+    errorMessages = error?.message
       ? [
           {
             path: '',
@@ -41,12 +43,15 @@ const globalErrorHandler = (
         ]
       : []
   }
+
   res.status(statusCode).json({
     success: false,
     message,
-    errorMessage,
-    stack: config.env !== 'production' ? err?.stack : undefined,
+    errorMessages,
+    stack: config.env !== 'production' ? error?.stack : undefined,
   })
+
   next()
 }
+
 export default globalErrorHandler
