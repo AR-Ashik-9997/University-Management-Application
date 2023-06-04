@@ -1,22 +1,22 @@
-import path from 'path'
-import { createLogger, format } from 'winston'
-const { combine, timestamp, printf } = format
-import DailyRotateFile from 'winston-daily-rotate-file'
+import path from 'path';
+import { createLogger, format } from 'winston';
+const { combine, timestamp, printf } = format;
+import DailyRotateFile from 'winston-daily-rotate-file';
 
 const myFormat = printf(({ level, message, timestamp }) => {
-  const date = new Date(timestamp)
+  const date = new Date(timestamp);
   const readableDate = date.toLocaleString('en-UK', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  })
+  });
   const readableTime = date.toLocaleString('en-UK', {
     hour: 'numeric',
     minute: 'numeric',
     hour12: true,
-  })
-  return `${readableDate},${readableTime} ${level}: ${message}`
-})
+  });
+  return `${readableDate},${readableTime} ${level}: ${message}`;
+});
 const logger = createLogger({
   level: 'info',
   format: combine(timestamp(), myFormat),
@@ -35,11 +35,11 @@ const logger = createLogger({
       maxFiles: '14d',
     }),
   ],
-})
+});
 const errorlogger = createLogger({
   level: 'error',
   format: combine(timestamp(), myFormat),
-  transports: [ 
+  transports: [
     new DailyRotateFile({
       filename: path.join(
         process.cwd(),
@@ -54,6 +54,6 @@ const errorlogger = createLogger({
       maxFiles: '14d',
     }),
   ],
-})
+});
 
-export { logger, errorlogger }
+export { logger, errorlogger };
