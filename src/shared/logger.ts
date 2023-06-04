@@ -39,7 +39,7 @@ const logger = createLogger({
 const errorlogger = createLogger({
   level: 'error',
   format: combine(timestamp(), myFormat),
-  transports: [    
+  transports: [ 
     new DailyRotateFile({
       filename: path.join(
         process.cwd(),
