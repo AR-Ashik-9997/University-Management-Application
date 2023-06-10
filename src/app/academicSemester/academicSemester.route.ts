@@ -13,4 +13,6 @@ router.post(
   AcademicSemesterController.createSemester
 );
 
+router.get('/pagination',AcademicSemesterController.getAllSemesters)
+
 export const AcademicSemesterRoute = router;
