@@ -9,7 +9,7 @@ const CreateAcademicSemesterZodValidationSchema = z.object({
     title: z.enum([...AcademicSemesterTitles] as [string, ...string[]], {
       required_error: 'title is required',
     }),
-    year: z.number({ required_error: 'year is required' }),
+    year: z.string({ required_error: 'year is required' }),
     code: z.enum([...AcademicSemesterCodes] as [string, ...string[]], {
       required_error: 'code is required',
     }),

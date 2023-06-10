@@ -1,7 +1,13 @@
 import ApiError from '../../eroors/apiErrorHandler';
 import httpstatus from 'http-status';
-import { AcademicSemesterTitleCodeMapper } from './academicSemester.constant';
-import { IAcademicSemester } from './academicSemester.interface';
+import {
+  AcademicSemesterSearchableFields,
+  AcademicSemesterTitleCodeMapper,
+} from './academicSemester.constant';
+import {
+  AcademicSemesterserchFields,
+  IAcademicSemester,
+} from './academicSemester.interface';
 import { AcademicSemester } from './academicSemester.model';
 import { IPagination } from '../../interfaces/pagination';
 import { IGenerickResponse } from '../../interfaces/common';
@@ -20,8 +26,31 @@ const createSemester = async (
 };
 
 const getAllSemesters = async (
+  filters: AcademicSemesterserchFields,
   paginationOptions: IPagination
 ): Promise<IGenerickResponse<IAcademicSemester[]>> => {
+  const { searchTerm, ...filtersData } = filters;
+
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      $or: AcademicSemesterSearchableFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: 'i',
+        },
+      })),
+    });
+  }
+  if (Object.keys(filtersData).length) {
+    andConditions.push({
+      $and: Object.entries(filtersData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+
   const { page, limit, skip, sortBy, sortOrder } =
     PaginationHelper.paginationCalculate(paginationOptions);
   const sortCondition: { [key: string]: SortOrder } = {};
@@ -29,8 +58,9 @@ const getAllSemesters = async (
   if (sortBy && sortOrder) {
     sortCondition[sortBy] = sortOrder;
   }
-
-  const result = await AcademicSemester.find()
+  const WhereCondition =
+    andConditions.length > 0 ? { $and: andConditions } : {};
+  const result = await AcademicSemester.find(WhereCondition)
     .sort(sortCondition)
     .skip(skip)
     .limit(limit);
@@ -45,7 +75,15 @@ const getAllSemesters = async (
   };
 };
 
+const getSingleSemester = async (
+  id: string
+): Promise<IAcademicSemester | null> => {
+  const result = await AcademicSemester.findById(id);
+  return result;
+};
+
 export const AcademicService = {
   createSemester,
   getAllSemesters,
+  getSingleSemester,
 };

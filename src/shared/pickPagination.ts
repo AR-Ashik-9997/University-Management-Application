@@ -1,4 +1,4 @@
-const pickPagination = <T extends Record<string, unknown>, k extends keyof T>(
+const pick = <T extends Record<string, unknown>, k extends keyof T>(
   obj: T,
   keys: k[]
 ) => {
@@ -11,4 +11,4 @@ const pickPagination = <T extends Record<string, unknown>, k extends keyof T>(
   }
   return finalObj;
 };
-export default pickPagination;
+export default pick;
