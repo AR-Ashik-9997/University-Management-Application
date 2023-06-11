@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { AcademicService } from './academicSemester.service';
-import catchAsync from '../../shared/catchAsync';
-import sendResponse from '../../shared/sendResponseApi';
+import catchAsync from '../../../shared/catchAsync';
+import sendResponse from '../../../shared/sendResponseApi';
 import httpStatus from 'http-status';
 import { IAcademicSemester } from './academicSemester.interface';
-import pick from '../../shared/pickPagination';
-import { paginationField } from '../../shared/constants';
+import pick from '../../../shared/pickPagination';
+import { paginationField } from '../../../shared/constants';
 import { AcademicSemesterFilterableFields } from './academicSemester.constant';
 
 const createSemester = catchAsync(

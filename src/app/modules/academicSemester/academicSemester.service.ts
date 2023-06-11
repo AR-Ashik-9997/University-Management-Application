@@ -1,4 +1,4 @@
-import ApiError from '../../eroors/apiErrorHandler';
+import ApiError from '../../../eroors/apiErrorHandler';
 import httpstatus from 'http-status';
 import {
   AcademicSemesterSearchableFields,
@@ -9,9 +9,9 @@ import {
   IAcademicSemester,
 } from './academicSemester.interface';
 import { AcademicSemester } from './academicSemester.model';
-import { IPagination } from '../../interfaces/pagination';
-import { IGenerickResponse } from '../../interfaces/common';
-import { PaginationHelper } from '../../helper/paginationCalculate';
+import { IPagination } from '../../../interfaces/pagination';
+import { IGenerickResponse } from '../../../interfaces/common';
+import { PaginationHelper } from '../../../helper/paginationCalculate';
 import { SortOrder } from 'mongoose';
 
 const createSemester = async (

@@ -8,7 +8,7 @@ import {
   AcademicSemesterCodes,
   AcademicSemesterMonths,
 } from './academicSemester.constant';
-import ApiError from '../../eroors/apiErrorHandler';
+import ApiError from '../../../eroors/apiErrorHandler';
 import httpstatus from 'http-status';
 
 
