@@ -1,15 +1,21 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
 import { ZodError } from 'zod';
-import { ErrorRequestHandler } from 'express';
+import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import handleValidationError from '../eroors/handleValidationError';
 import { IGenerickErrorMessage } from '../interfaces/error';
 import ApiError from '../eroors/apiErrorHandler';
 import config from '../config';
 import { errorlogger } from '../shared/logger';
 import handleZodError from '../eroors/handleZodValidation';
+import handleCastError from '../eroors/handleCastError';
 
-const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
+const globalErrorHandler: ErrorRequestHandler = (
+  error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   config.env === 'development'
     ? console.log('global error handler', error)
     : errorlogger.error('global error handler', error);
@@ -20,6 +26,11 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
 
   if (error?.name === 'ValidationError') {
     const simplifiedError = handleValidationError(error);
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorMessages = simplifiedError.errorMessages;
+  } else if (error?.name === 'CastError') {
+    const simplifiedError = handleCastError(error);
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorMessages = simplifiedError.errorMessages;
@@ -57,8 +68,7 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     errorMessages,
     stack: config.env !== 'production' ? error?.stack : undefined,
   });
-
-  next();
+  next(error);
 };
 
 export default globalErrorHandler;
