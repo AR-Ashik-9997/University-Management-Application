@@ -23,13 +23,13 @@ const UpdateStudentZodValidationSchema = z.object({
       motherOccupation: z.string().optional(),
       motherContactNo: z.string().optional(),
       address: z.string().optional(),
-    }),
+    }).optional(),
     localGuardian: z.object({
       name: z.string().optional(),
       occupation: z.string().optional(),
       contactNo: z.string().optional(),
       address: z.string().optional(),
-    }),
+    }).optional(),
     profileImage: z.string().optional(),
   }),
 });
