@@ -3,23 +3,26 @@ import { IPagination } from '../../../interfaces/pagination';
 import { IGenerickResponse } from '../../../interfaces/common';
 import { PaginationHelper } from '../../../helper/paginationCalculate';
 import { SortOrder } from 'mongoose';
+
+import { AcademicDepartment } from './academicDepertment.model';
 import {
   AcademicDepartmentsearchFields,
-  IAcademicDepatment,
+  IAcademicDepartment,
 } from './academicDepertment.interface';
-import { AcademicDepartment } from './academicDepertment.model';
 
 const createDepartment = async (
-  payload: IAcademicDepatment
-): Promise<IAcademicDepatment> => {
-  const result = await AcademicDepartment.create(payload);
+  payload: IAcademicDepartment
+): Promise<IAcademicDepartment> => {
+  const result = (await AcademicDepartment.create(payload)).populate(
+    'academicFaculty'
+  );
   return result;
 };
 
 const getAllDepartments = async (
   filters: AcademicDepartmentsearchFields,
   paginationOptions: IPagination
-): Promise<IGenerickResponse<IAcademicDepatment[]>> => {
+): Promise<IGenerickResponse<IAcademicDepartment[]>> => {
   const { searchTerm, ...filtersData } = filters;
 
   const andConditions = [];
@@ -52,6 +55,7 @@ const getAllDepartments = async (
   const WhereCondition =
     andConditions.length > 0 ? { $and: andConditions } : {};
   const result = await AcademicDepartment.find(WhereCondition)
+    .populate('academicFaculty')
     .sort(sortCondition)
     .skip(skip)
     .limit(limit);
@@ -68,28 +72,32 @@ const getAllDepartments = async (
 
 const getSingleDepartment = async (
   id: string
-): Promise<IAcademicDepatment | null> => {
-  const result = await AcademicDepartment.findById(id);
+): Promise<IAcademicDepartment | null> => {
+  const result = await AcademicDepartment.findById(id).populate(
+    'academicFaculty'
+  );
   return result;
 };
 const updateDepartment = async (
   id: string,
-  payload: Partial<IAcademicDepatment>
-): Promise<IAcademicDepatment | null> => {
+  payload: Partial<IAcademicDepartment>
+): Promise<IAcademicDepartment | null> => {
   const result = await AcademicDepartment.findOneAndUpdate(
     { _id: id },
     payload,
     {
       new: true,
     }
-  );
+  ).populate('academicFaculty');
   return result;
 };
 
 const deleteDepartment = async (
   id: string
-): Promise<IAcademicDepatment | null> => {
-  const result = await AcademicDepartment.findByIdAndDelete(id);
+): Promise<IAcademicDepartment | null> => {
+  const result = await AcademicDepartment.findByIdAndDelete(id).populate(
+    'academicFaculty'
+  );
   return result;
 };
 
