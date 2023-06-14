@@ -7,8 +7,8 @@ import { IUser } from './user.interface';
 
 const createStudent = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { student,...userData } = req.body;
-    const result = await UserService.createStudent(student,userData);   
+    const { student, ...userData } = req.body;
+    const result = await UserService.createStudent(student, userData);
     sendResponse<IUser>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -18,4 +18,18 @@ const createStudent = catchAsync(
     next();
   }
 );
-export const UserController = { createStudent };
+const createFaculty = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { faculty, ...userData } = req.body;
+
+    const result = await UserService.createFaculty(faculty, userData);
+    sendResponse<IUser>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'user created successfully',
+      data: result,
+    });
+    next();
+  }
+);
+export const UserController = { createStudent, createFaculty };

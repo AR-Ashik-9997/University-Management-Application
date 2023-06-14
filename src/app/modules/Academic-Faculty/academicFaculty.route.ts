@@ -14,7 +14,7 @@ router.post(
   FacultyController.createFaculty
 );
 
-router.get('/get-all', FacultyController.getAllDeparments);
+router.get('/get-all', FacultyController.getAllAcademicFaculties);
 
 router.get('/get-single/:id',FacultyController.getSingleFaculty);
 router.patch('/update-faculty/:id',requestValidation(FacultyValidation.UpdateFacultyZodValidationSchema),FacultyController.updateFaculty);

@@ -15,7 +15,7 @@ const createFaculty = async (
   return result;
 };
 
-const getAllFacultys = async (
+const getAllFaculties = async (
   filters: AcademicFacultysearchFields,
   paginationOptions: IPagination
 ): Promise<IGenerickResponse<IAcademicFaculty[]>> => {
@@ -94,7 +94,7 @@ const deleteFaculty = async (
 
 export const FacultyService = {
   createFaculty,
-  getAllFacultys,
+  getAllFaculties,
   getSingleFaculty,
   updateFaculty,
   deleteFaculty,
