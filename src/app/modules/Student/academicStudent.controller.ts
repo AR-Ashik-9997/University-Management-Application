@@ -9,18 +9,7 @@ import { IStudent } from './academicStudent.interface';
 import { AcademicStudentFilterableFields } from './academicStudent.constant';
 
 
-
-const createStudent = catchAsync(async (req: Request, res: Response) => {
-  const { ...academicStudentData } = req.body;
-  const result = await StudentService.createStudent(academicStudentData);
-  sendResponse<IStudent>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Academic Student created successfully',
-    data: result,
-  });
-});
-const getAllDeparments = catchAsync(async (req: Request, res: Response) => {
+const getAllStudents = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, AcademicStudentFilterableFields);
   const paginationOptions = pick(req.query, paginationField);
 
@@ -70,8 +59,7 @@ const deleteStudent = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const StudentController = {
-  createStudent,
-  getAllDeparments,
+  getAllStudents,
   getSingleStudent,
   updateStudent,
   deleteStudent,
