@@ -8,4 +8,6 @@ export default {
   port: process.env.PORT,
   mongoURI: process.env.MONGO_URI,
   default_student_Password: process.env.DEFAULT_STUDENT_PASSWORD,
+  default_faculty_Password: process.env.DEFAULT_FACULTY_PASSWORD,
+  default_admin_Password: process.env.DEFAULT_ADMIN_PASSWORD,
 };
