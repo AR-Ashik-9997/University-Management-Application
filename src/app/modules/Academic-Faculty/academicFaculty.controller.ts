@@ -19,7 +19,7 @@ const createFaculty = catchAsync(async (req: Request, res: Response) => {
   });
 });
 const getAllAcademicFaculties = catchAsync(
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {  
     const filters = pick(req.query, AcademicFacultyFilterableFields);
     const paginationOptions = pick(req.query, paginationField);
 

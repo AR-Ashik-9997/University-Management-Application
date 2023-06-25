@@ -7,6 +7,7 @@ import { IUser } from './user.interface';
 
 const createStudent = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.cookies,"cookie");
     const { student, ...userData } = req.body;
     const result = await UserService.createStudent(student, userData);
     sendResponse<IUser>(res, {
@@ -32,4 +33,18 @@ const createFaculty = catchAsync(
     next();
   }
 );
-export const UserController = { createStudent, createFaculty };
+
+const createAdmin = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { admin, ...userData } = req.body;
+    const result = await UserService.createAdmin(admin, userData);
+    sendResponse<IUser>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'user created successfully',
+      data: result,
+    });
+    next();
+  }
+);
+export const UserController = { createStudent, createFaculty,createAdmin };
