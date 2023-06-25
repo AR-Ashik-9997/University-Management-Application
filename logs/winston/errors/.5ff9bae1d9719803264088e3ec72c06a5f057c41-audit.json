@@ -14,6 +14,36 @@
             "date": 1687550519672,
             "name": "G:\\Next Level-2\\University-Management-Application\\logs\\winston\\errors\\24-06-2023-02-error.log",
             "hash": "12498224a726a4becd76f2a97ff61c1d35e36bfdc7a96b774b9a1c2e17a27178"
+        },
+        {
+            "date": 1687554093177,
+            "name": "G:\\Next Level-2\\University-Management-Application\\logs\\winston\\errors\\24-06-2023-03-error.log",
+            "hash": "eeed24fc866122233fcf2434c83457c63c8c9f0f69c34c0237b83c96c47a81c2"
+        },
+        {
+            "date": 1687697125591,
+            "name": "G:\\Next Level-2\\University-Management-Application\\logs\\winston\\errors\\25-06-2023-18-error.log",
+            "hash": "8340dbc9f3fec764b482a3cc859a1ddc4b44adeb79891312f77c7d9dfb5994ac"
+        },
+        {
+            "date": 1687698879781,
+            "name": "G:\\Next Level-2\\University-Management-Application\\logs\\winston\\errors\\25-06-2023-19-error.log",
+            "hash": "6f1c7a36a8ba90c9882b1b187f70cd5dc81febcfe0e9e9c899c7047aa1fbc74a"
+        },
+        {
+            "date": 1687701608558,
+            "name": "G:\\Next Level-2\\University-Management-Application\\logs\\winston\\errors\\25-06-2023-20-error.log",
+            "hash": "739f2b6221e98f3bf936d33c13178a51524ec01084244653bd61dbedd0a1d5f5"
+        },
+        {
+            "date": 1687705694419,
+            "name": "G:\\Next Level-2\\University-Management-Application\\logs\\winston\\errors\\25-06-2023-21-error.log",
+            "hash": "560d237d73ff4a50dc904588d3f103f345f4af2104182ab01442babd443758e7"
+        },
+        {
+            "date": 1687710863489,
+            "name": "G:\\Next Level-2\\University-Management-Application\\logs\\winston\\errors\\25-06-2023-22-error.log",
+            "hash": "eb7006a632a44895bf9afe36f75ba0adc3ca5f4c30e2be6379f67427b7d5d311"
         }
     ],
     "hashType": "sha256"
